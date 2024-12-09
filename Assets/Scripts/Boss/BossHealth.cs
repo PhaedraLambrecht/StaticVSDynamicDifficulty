@@ -31,6 +31,12 @@ public class BossHealth : NetworkBehaviour, IDamagable
     private const string k_effectHit = "_Hit";
     private const string k_animHit = "hit";
 
+
+    public void Awake()
+    {
+        m_baseHealth = DifficultyManager.Instance.GetDifficultyLevel().BossHealth;
+    }
+
     public override void OnNetworkSpawn()
     {
         if (IsServer)

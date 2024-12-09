@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
 
     private bool m_pressAnyKeyActive = true;
     private const string k_enterMenuTriggerAnim = "enter_menu";
+    private const string k_enterDifficultyChoiceTriggerAnim = "ToDificultyChoice";
 
     [SerializeField]
     private SceneName nextScene = SceneName.CharacterSelection;
@@ -41,6 +42,13 @@ public class MenuManager : MonoBehaviour
 
         ClearAllCharacterData();
 
+        if (DifficultyManager.Instance == null)
+        {
+            // Initialize StaticDifficulty if it is null
+            GameObject staticDifficultyObject = new GameObject("DifficultyManager");
+            staticDifficultyObject.AddComponent<DifficultyManager>();
+        }
+
         // Wait for the network Scene Manager to start
         yield return new WaitUntil(() => NetworkManager.Singleton.SceneManager != null);
 
@@ -48,6 +56,8 @@ public class MenuManager : MonoBehaviour
         // Doing this because every time the network session ends the loading manager stops
         // detecting the events
         LoadingSceneManager.Instance.Init();
+
+
     }
 
     private void Update()
@@ -56,31 +66,54 @@ public class MenuManager : MonoBehaviour
         {
             if (Input.anyKey)
             {
-                TriggerMainMenuTransitionAnimation();
+                TriggerMenuTransitionAnimation(k_enterMenuTriggerAnim);
 
                 m_pressAnyKeyActive = false;
             }
         }
     }
 
-    public void OnClickHost()
+    public void OnClickOption(string option)
     {
+        if (option == "2")
+        {
+            Debug.Log("Add in dynamic difficulty");
+            DifficultyManager.Instance.LoadDifficultySettings();
+
+            NetworkManager.Singleton.StartHost();
+            AudioManager.Instance.PlaySoundEffect(m_confirmClip);
+            LoadingSceneManager.Instance.LoadScene(SceneName.CharacterSelection);
+        }
+        else
+        {
+            TriggerMenuTransitionAnimation(k_enterDifficultyChoiceTriggerAnim);
+        }
+    }
+
+
+    public void OnClickDifficulty(string difficulty)
+    {
+        // Loading the difficulty (needs to be adjusted to take any of the 3.
+        DifficultyManager.Instance.LoadDifficultySettings();
+        DifficultyManager.Instance.SetDifficulty(difficulty);
+
+
         NetworkManager.Singleton.StartHost();
         AudioManager.Instance.PlaySoundEffect(m_confirmClip);
-        LoadingSceneManager.Instance.LoadScene(nextScene);
+        LoadingSceneManager.Instance.LoadScene(SceneName.CharacterSelection);
     }
 
-    public void OnClickJoin()
-    {
-        AudioManager.Instance.PlaySoundEffect(m_confirmClip);
-        StartCoroutine(Join());
-    }
-
-    public void OnClickQuit()
-    {
-        AudioManager.Instance.PlaySoundEffect(m_confirmClip);
-        Application.Quit();
-    }
+    //public void OnClickJoin()
+    //{
+    //    AudioManager.Instance.PlaySoundEffect(m_confirmClip);
+    //    StartCoroutine(Join());
+    //}
+    //
+    //public void OnClickQuit()
+    //{
+    //    AudioManager.Instance.PlaySoundEffect(m_confirmClip);
+    //    Application.Quit();
+    //}
 
     private void ClearAllCharacterData()
     {
@@ -91,9 +124,9 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void TriggerMainMenuTransitionAnimation()
+    private void TriggerMenuTransitionAnimation(string trigger)
     {
-        m_menuAnimator.SetTrigger(k_enterMenuTriggerAnim);
+        m_menuAnimator.SetTrigger(trigger);
         AudioManager.Instance.PlaySoundEffect(m_confirmClip);
     }
 

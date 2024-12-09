@@ -47,7 +47,13 @@ public class PlayerShipController : NetworkBehaviour, IDamagable
     bool m_isPlayerDefeated;
 
     const string k_hitEffect = "_Hit";
+   
 
+    public void Awake()
+    {
+        health.Value = DifficultyManager.Instance.GetDifficultyLevel().PlayerHealth;
+    }
+  
     void Update()
     {
         if (IsOwner)
