@@ -78,8 +78,18 @@ public class Meteor : NetworkBehaviour, IDamagable
     public void Hit(int damage)
     {
         m_health -= damage;
+
+        // DDA - meteor hit
+        if (DDAController.Instance != null)
+            DDAController.Instance.RecordEnemyHit();
+
+
         if (m_health <= 0)
         {
+            // DDA - meteor defeated
+            if (DDAController.Instance != null)
+                DDAController.Instance.RecordEnemyDefeated();
+
             PowerUpSpawnController.instance.OnPowerUpSpawn(transform.position);
             NetworkObjectSpawner.SpawnNewNetworkObject(m_vfxExplosion, transform.position);
 

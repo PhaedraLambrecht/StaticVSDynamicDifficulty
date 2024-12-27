@@ -1,19 +1,55 @@
 {
-    "Easy": {
-    "PlayerHealth": 15,
+	"Easy": {
+		"PlayerHealth": 15,
 		"GhostHealth": 2,
 		"ShooterHealth": 1,
 		"BossHealth": 10,
 		"MeteoritesHealth": 2,
-        "Waves": [
-            { "WaveNumber": 1, "Shooter": 0, "Ghost": 2, "Meteor": 5, "Boss": false },
-            { "WaveNumber": 2, "Shooter": 2, "Ghost": 2, "Meteor": 5, "Boss": false },
-            { "WaveNumber": 3, "Shooter": 5, "Ghost": 2, "Meteor": 5, "Boss": false },
-            { "WaveNumber": 4, "Shooter": 5, "Ghost": 5, "Meteor": 5, "Boss": false },
-            { "WaveNumber": 5, "Shooter": 5, "Ghost": 10, "Meteor": 10, "Boss": false },
-            { "WaveNumber": 6, "Shooter": 0, "Ghost": 0, "Meteor": 0, "Boss": true }
-        ]
-    },
+		"Waves": [
+			{
+				"WaveNumber": 1,
+				"Shooter": 0,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 2,
+				"Shooter": 2,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 3,
+				"Shooter": 5,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 4,
+				"Shooter": 5,
+				"Ghost": 5,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 5,
+				"Shooter": 5,
+				"Ghost": 10,
+				"Meteor": 10,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 6,
+				"Shooter": 0,
+				"Ghost": 0,
+				"Meteor": 0,
+				"Boss": true
+			}
+		]
+	},
 	"Normal": {
 		"PlayerHealth": 15,
 		"GhostHealth": 2,
@@ -21,14 +57,50 @@
 		"BossHealth": 15,
 		"MeteoritesHealth": 1,
 		"Waves": [
-			{ "WaveNumber": 1, "Shooter": 0, "Ghost": 2, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 2, "Shooter": 2, "Ghost": 2, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 3, "Shooter": 5, "Ghost": 2, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 4, "Shooter": 5, "Ghost": 5, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 5, "Shooter": 5, "Ghost": 10, "Meteor": 10, "Boss": false },
-			{ "WaveNumber": 6, "Shooter": 0, "Ghost": 0, "Meteor": 0, "Boss": true }
+			{
+				"WaveNumber": 1,
+				"Shooter": 0,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 2,
+				"Shooter": 2,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 3,
+				"Shooter": 5,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 4,
+				"Shooter": 5,
+				"Ghost": 5,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 5,
+				"Shooter": 5,
+				"Ghost": 10,
+				"Meteor": 10,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 6,
+				"Shooter": 0,
+				"Ghost": 0,
+				"Meteor": 0,
+				"Boss": true
+			}
 		]
-    },
+	},
 	"Hard": {
 		"PlayerHealth": 10,
 		"GhostHealth": 4,
@@ -36,12 +108,99 @@
 		"BossHealth": 20,
 		"MeteoritesHealth": 3,
 		"Waves": [
-			{ "WaveNumber": 1, "Shooter": 0, "Ghost": 2, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 2, "Shooter": 2, "Ghost": 2, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 3, "Shooter": 5, "Ghost": 2, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 4, "Shooter": 5, "Ghost": 5, "Meteor": 5, "Boss": false },
-			{ "WaveNumber": 5, "Shooter": 5, "Ghost": 10, "Meteor": 10, "Boss": false },
-			{ "WaveNumber": 6, "Shooter": 0, "Ghost": 0, "Meteor": 0, "Boss": true }
+			{
+				"WaveNumber": 1,
+				"Shooter": 0,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 2,
+				"Shooter": 2,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 3,
+				"Shooter": 5,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 4,
+				"Shooter": 5,
+				"Ghost": 5,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 5,
+				"Shooter": 5,
+				"Ghost": 10,
+				"Meteor": 10,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 6,
+				"Shooter": 0,
+				"Ghost": 0,
+				"Meteor": 0,
+				"Boss": true
+			}
 		]
-    }	
+	},
+	"Dynamic": {
+		"PlayerHealth": 15,
+		"GhostHealth": 2,
+		"ShooterHealth": 2,
+		"BossHealth": 15,
+		"MeteoritesHealth": 1,
+		"Waves": [
+			{
+				"WaveNumber": 1,
+				"Shooter": 0,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 2,
+				"Shooter": 2,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 3,
+				"Shooter": 5,
+				"Ghost": 2,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 4,
+				"Shooter": 5,
+				"Ghost": 5,
+				"Meteor": 5,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 5,
+				"Shooter": 5,
+				"Ghost": 10,
+				"Meteor": 10,
+				"Boss": false
+			},
+			{
+				"WaveNumber": 6,
+				"Shooter": 0,
+				"Ghost": 0,
+				"Meteor": 0,
+				"Boss": true
+			}
+		]
+	}
 }

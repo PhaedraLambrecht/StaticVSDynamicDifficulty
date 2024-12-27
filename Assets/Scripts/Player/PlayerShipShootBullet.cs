@@ -38,6 +38,10 @@ public class PlayerShipShootBullet : NetworkBehaviour
     {
         SpawnNewBulletVfx();
 
+        // DDA - Bullet shot
+        if (DDAController.Instance != null)
+            DDAController.Instance.RecordPlayerShoot();
+
         GameObject newBullet = GetNewBullet();
 
         PrepareNewlySpawnedBulltet(newBullet);

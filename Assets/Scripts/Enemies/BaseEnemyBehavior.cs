@@ -69,7 +69,15 @@ public class BaseEnemyBehavior : NetworkBehaviour, IDamagable
         {
             UpdateDefeatedAnimation();
         }
-        else // (m_EnemyState.Value == EnemyState.defeated)
+        else if (m_EnemyState.Value == EnemyState.defeated)
+        {
+            // DDA - enemy defeated
+            if (DDAController.Instance != null)
+                DDAController.Instance.RecordEnemyDefeated();
+
+            DespawnEnemy();
+        }
+        else
         {
             DespawnEnemy();
         }
@@ -118,6 +126,10 @@ public class BaseEnemyBehavior : NetworkBehaviour, IDamagable
             return;
 
         m_EnemyHealthPoints.Value -= 1;
+
+        // DDA - enemy hit
+        if (DDAController.Instance != null)
+            DDAController.Instance.RecordEnemyHit();
 
         StopCoroutine(HitEffect());
         StartCoroutine(HitEffect());

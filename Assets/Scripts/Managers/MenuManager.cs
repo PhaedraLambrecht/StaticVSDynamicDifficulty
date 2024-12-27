@@ -73,12 +73,18 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    // TODO: Implement dynamic difficulty
     public void OnClickOption(string option)
     {
         if (option == "2")
         {
-            Debug.Log("Add in dynamic difficulty");
+            // Create and configure the DDAController
+            GameObject ddaControllerObject = new GameObject("DDAController");
+            DDAController ddaController = ddaControllerObject.AddComponent<DDAController>();
+            //        Debug.Log("Add in dynamic difficulty");
             DifficultyManager.Instance.LoadDifficultySettings();
+            DifficultyManager.Instance.SetDifficulty("Dynamic");
+
 
             NetworkManager.Singleton.StartHost();
             AudioManager.Instance.PlaySoundEffect(m_confirmClip);
@@ -103,12 +109,7 @@ public class MenuManager : MonoBehaviour
         LoadingSceneManager.Instance.LoadScene(SceneName.CharacterSelection);
     }
 
-    //public void OnClickJoin()
-    //{
-    //    AudioManager.Instance.PlaySoundEffect(m_confirmClip);
-    //    StartCoroutine(Join());
-    //}
-    //
+    // TODO: Implement the quit functionality sending a mail to myself with peoples info.
     //public void OnClickQuit()
     //{
     //    AudioManager.Instance.PlaySoundEffect(m_confirmClip);

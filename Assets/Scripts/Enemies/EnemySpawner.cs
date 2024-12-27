@@ -50,6 +50,8 @@ public class EnemySpawner : NetworkBehaviour
     private float m_CurrentBossSpawnTime = 0f;
     private bool m_IsSpawning = true;
 
+
+
     private void Start()
     {
         // Initialize the enemy and meteor spawn position based on my owning GO's x position

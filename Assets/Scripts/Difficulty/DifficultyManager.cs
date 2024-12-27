@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DifficultyManager : Singleton<DifficultyManager>
@@ -44,6 +45,11 @@ public class DifficultyManager : Singleton<DifficultyManager>
                 _selectedDifficulty = _difficulty.Hard;
                 Debug.Log("Hard");
                 break;
+            case "dynamic":
+
+                _selectedDifficulty = _difficulty.Dynamic;
+                Debug.Log("Dynamic");
+                break;
             default:
                 throw new System.ArgumentException($"Invalid difficulty level: {difficulty}");
         }
@@ -56,5 +62,13 @@ public class DifficultyManager : Singleton<DifficultyManager>
             throw new System.InvalidOperationException("Difficulty level has not been set.");
         }
         return _selectedDifficulty;
+    }
+
+    public DifficultySettings Difficulty
+    {
+        get
+        {
+            return _difficulty;
+        }
     }
 }

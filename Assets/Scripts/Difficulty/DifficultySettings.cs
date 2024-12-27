@@ -5,6 +5,7 @@ public class DifficultySettings
     public DifficultyLevel Easy;
     public DifficultyLevel Normal;
     public DifficultyLevel Hard;
+    public DifficultyLevel Dynamic;
 }
 
 [System.Serializable]

@@ -53,7 +53,7 @@ public class PlayerShipController : NetworkBehaviour, IDamagable
     {
         health.Value = DifficultyManager.Instance.GetDifficultyLevel().PlayerHealth;
     }
-  
+
     void Update()
     {
         if (IsOwner)
@@ -186,6 +186,11 @@ public class PlayerShipController : NetworkBehaviour, IDamagable
 
         // Update health var
         health.Value -= damage;
+
+        // DDA - player hit
+        if (DDAController.Instance != null)
+            DDAController.Instance.RecordPlayerHit(damage);
+
 
         // Update UI
         playerUI.UpdateHealth(health.Value);

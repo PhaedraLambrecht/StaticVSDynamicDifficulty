@@ -153,6 +153,11 @@ public class EndGameManager : SingletonNetwork<EndGameManager>
 
     private void Shutdown()
     {
+        if (DDAController.Instance != null)
+        {
+            DDAController.Instance.DestroyDDAController();
+        }
+
         NetworkManager.Singleton.Shutdown();
         LoadingSceneManager.Instance.LoadScene(SceneName.Menu, false);
     }
