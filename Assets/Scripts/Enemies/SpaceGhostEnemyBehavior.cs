@@ -9,10 +9,26 @@ public class SpaceGhostEnemyBehavior : BaseEnemyBehavior
     private bool m_IsFlashingFromHit = false;
     private float m_FlashFromHitTime = 0.7f;
 
+    public void Awake()
+    {
+        if (DifficultyManager.Instance.DifficultySetting.ToString() != "Dynamic")
+        {
+            m_EnemyHealthPoints.Value = DifficultyManager.Instance.GetDifficultyLevel().GhostHealth;
+        }
+        else
+        {
+            m_EnemyHealthPoints.Value = DDAController.Instance._currentDifficulty.GhostHealth;
+        }
+
+    }
+
+
     public override void OnNetworkSpawn()
     {
         if (IsServer)
             m_EnemyHealthPoints.OnValueChanged += OnEnemyHealthPointsChange;
+
+   
 
         base.OnNetworkSpawn();
     }

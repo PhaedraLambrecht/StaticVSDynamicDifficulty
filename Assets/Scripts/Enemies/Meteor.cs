@@ -32,6 +32,21 @@ public class Meteor : NetworkBehaviour, IDamagable
     [SerializeField]
     private float m_scaleMax = 1.5f;
 
+
+    public void Awake()
+    {
+        if (DifficultyManager.Instance.DifficultySetting.ToString() != "Dynamic")
+        {
+            m_health = DifficultyManager.Instance.GetDifficultyLevel().MeteoritesHealth;
+        }
+        else
+        {
+            m_health = DDAController.Instance._currentDifficulty.MeteoritesHealth;
+        }
+    }
+
+
+
     private void Start()
     {
         // Randomly select the sprite to use 
@@ -81,7 +96,7 @@ public class Meteor : NetworkBehaviour, IDamagable
 
         // DDA - meteor hit
         if (DDAController.Instance != null)
-            DDAController.Instance.RecordEnemyHit();
+            DDAController.Instance.RecordShotHit();
 
 
         if (m_health <= 0)

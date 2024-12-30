@@ -28,9 +28,7 @@ public class BaseEnemyBehavior : NetworkBehaviour, IDamagable
     [SerializeField]
     protected bool m_UsesEnemyLifetime = true;
 
-    [SerializeField]
-    protected NetworkVariable<int> m_EnemyHealthPoints =
-        new NetworkVariable<int>(3, NetworkVariableReadPermission.Everyone);
+    [SerializeField] protected NetworkVariable<int> m_EnemyHealthPoints = new NetworkVariable<int>();
 
     [SerializeField]
     protected GameObject m_VfxExplosion;
@@ -129,7 +127,7 @@ public class BaseEnemyBehavior : NetworkBehaviour, IDamagable
 
         // DDA - enemy hit
         if (DDAController.Instance != null)
-            DDAController.Instance.RecordEnemyHit();
+            DDAController.Instance.RecordShotHit();
 
         StopCoroutine(HitEffect());
         StartCoroutine(HitEffect());

@@ -6,6 +6,7 @@ public class PlayerShipController : NetworkBehaviour, IDamagable
 {
     public NetworkVariable<int> health = new NetworkVariable<int>();
 
+
     [SerializeField]
     int m_maxSpecialPower;
 

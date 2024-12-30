@@ -40,7 +40,7 @@ public class PlayerShipShootBullet : NetworkBehaviour
 
         // DDA - Bullet shot
         if (DDAController.Instance != null)
-            DDAController.Instance.RecordPlayerShoot();
+            DDAController.Instance.RecordShotFired();
 
         GameObject newBullet = GetNewBullet();
 

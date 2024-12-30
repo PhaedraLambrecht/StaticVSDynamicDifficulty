@@ -18,11 +18,11 @@ public class DifficultyReader : Singleton<DifficultyReader>
         if (jsonFile != null)
         {
             _settings = JsonUtility.FromJson<DifficultySettings>(jsonFile.text);
-            Debug.Log("Difficulty settings loaded successfully!");
+            Debug.Log("DifficultySetting settings loaded successfully!");
         }
         else
         {
-            Debug.LogError("Difficulty settings file not found!");
+            Debug.LogError("DifficultySetting settings file not found!");
         }
     }
 

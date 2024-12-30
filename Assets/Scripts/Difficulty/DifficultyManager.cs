@@ -4,7 +4,7 @@ using UnityEngine;
 public class DifficultyManager : Singleton<DifficultyManager>
 {
     private GameObject _difficultySettings;
-    private DifficultySettings _difficulty;
+    private DifficultySettings _difficultySetting;
     private static DifficultyLevel _selectedDifficulty;
 
     public override void Awake()
@@ -23,7 +23,7 @@ public class DifficultyManager : Singleton<DifficultyManager>
             _difficultySettings.AddComponent<DifficultyReader>();
         }
 
-        _difficulty = _difficultySettings.GetComponent<DifficultyReader>().Settings;
+        _difficultySetting = _difficultySettings.GetComponent<DifficultyReader>().Settings;
     }
 
     public void SetDifficulty(string difficulty)
@@ -32,22 +32,22 @@ public class DifficultyManager : Singleton<DifficultyManager>
         {
             case "easy":
 
-                _selectedDifficulty = _difficulty.Easy;
+                _selectedDifficulty = _difficultySetting.Easy;
                 Debug.Log("Easy");
                 break;
             case "normal":
 
-                _selectedDifficulty = _difficulty.Normal;
+                _selectedDifficulty = _difficultySetting.Normal;
                 Debug.Log("Normal");
                 break;
             case "hard":
 
-                _selectedDifficulty = _difficulty.Hard;
+                _selectedDifficulty = _difficultySetting.Hard;
                 Debug.Log("Hard");
                 break;
             case "dynamic":
 
-                _selectedDifficulty = _difficulty.Dynamic;
+                _selectedDifficulty = _difficultySetting.Dynamic;
                 Debug.Log("Dynamic");
                 break;
             default:
@@ -59,16 +59,16 @@ public class DifficultyManager : Singleton<DifficultyManager>
     {
         if (_selectedDifficulty == null)
         {
-            throw new System.InvalidOperationException("Difficulty level has not been set.");
+            throw new System.InvalidOperationException("DifficultySetting level has not been set.");
         }
         return _selectedDifficulty;
     }
 
-    public DifficultySettings Difficulty
+    public DifficultySettings DifficultySetting
     {
         get
         {
-            return _difficulty;
+            return _difficultySetting;
         }
     }
 }

@@ -15,6 +15,20 @@ public class SpaceShooterEnemyBehavior : BaseEnemyBehavior
 
     private float m_CurrentCooldownTime = 0f;
 
+    public void Awake()
+    {
+        if (DifficultyManager.Instance.DifficultySetting.ToString() != "Dynamic")
+        {
+            m_EnemyHealthPoints.Value = DifficultyManager.Instance.GetDifficultyLevel().ShooterHealth;
+        }
+        else
+        {
+            m_EnemyHealthPoints.Value = DDAController.Instance._currentDifficulty.ShooterHealth;
+        }
+
+    }
+
+
     public override void OnNetworkSpawn()
     {
         if (IsServer)
