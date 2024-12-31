@@ -44,6 +44,14 @@ public class EnemySpawner : NetworkBehaviour
 
 
 
+    public int CurrentWaveIndex
+    {
+        get
+        {
+            return currentWaveIndex;
+        }
+    }
+
 
     private void Start()
     {
@@ -89,6 +97,12 @@ public class EnemySpawner : NetworkBehaviour
         }
 
         var currentWave = waves[currentWaveIndex];
+
+        if (DDAController.Instance != null)
+        {
+            currentWave = DDAController.Instance._currentDifficulty.Waves[currentWaveIndex];
+        }
+
         currentGhostCount = currentWave.Ghost;
         currentShooterCount = currentWave.Shooter;
         currentMeteorCount = currentWave.Meteor;

@@ -144,6 +144,10 @@ public class DDAController : Singleton<DDAController>
         // Meteor
         MeteorAdjustments(1, 6);
 
+        // Spawning
+        WaveAdjustments(1, 10, 1, 5, 1, 10);
+
+
         // Player
         _startingPlayerHealth = _currentDifficulty.PlayerHealth;
     }
@@ -156,6 +160,10 @@ public class DDAController : Singleton<DDAController>
 
         // Meteor
         MeteorAdjustments(-1, 2);
+
+        // Spawning
+        WaveAdjustments(-1, 2,-1, 0, -1, 2);
+
 
         // Player
         _startingPlayerHealth = _currentDifficulty.PlayerHealth;
@@ -171,20 +179,59 @@ public class DDAController : Singleton<DDAController>
     private void EnemyAdjustgments(int minHealthShooter, int maxHealthShooter, int minHealthGhost, int maxhealthGhost)
     {
         // Ghost health
-        _currentDifficulty.GhostHealth = Mathf.Min(Mathf.Max(_currentDifficulty.GhostHealth + minHealthGhost, minHealthGhost), maxhealthGhost);
+        _currentDifficulty.GhostHealth = Mathf.Clamp(
+            _currentDifficulty.GhostHealth + minHealthGhost,
+            minHealthGhost,
+            maxhealthGhost
+        );
 
         // Shooter health
-        _currentDifficulty.ShooterHealth = Mathf.Min(Mathf.Max(_currentDifficulty.ShooterHealth + minHealthShooter, minHealthShooter), maxHealthShooter);
+        _currentDifficulty.ShooterHealth = Mathf.Clamp(
+            _currentDifficulty.ShooterHealth + minHealthShooter,
+            minHealthShooter,
+            maxHealthShooter
+        );
     }
 
     private void BossAdjustments(int minHealth, int maxHealth)
     {
-        _currentDifficulty.BossHealth = Mathf.Min(Mathf.Max(_currentDifficulty.GhostHealth + minHealth, minHealth), maxHealth);
+        _currentDifficulty.BossHealth = Mathf.Clamp(
+            _currentDifficulty.BossHealth + minHealth,
+            minHealth,
+            maxHealth
+        );
     }
 
     private void MeteorAdjustments(int minHealth, int maxHealth)
     {
-        _currentDifficulty.MeteoritesHealth = Mathf.Min(Mathf.Max(_currentDifficulty.GhostHealth + minHealth, minHealth), maxHealth);
+        _currentDifficulty.MeteoritesHealth = Mathf.Clamp(
+            _currentDifficulty.MeteoritesHealth + minHealth,
+            minHealth,
+            maxHealth
+        );
+    }
+
+
+    private void WaveAdjustments(int minGhostSpawnAmount, int maxGhostSpawnAmount, int minShootSpawnAmount, int maxShootSpawnAmount, int minMeteorSpawnAmount, int maxMeteorSpawnAmount)
+    {
+        EnemySpawner spawner = FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
+        int index = spawner.CurrentWaveIndex;
+
+        if (index > 5)
+        {
+            return;
+        }
+
+
+        Wave wave = _currentDifficulty.Waves[index];
+
+
+        wave.Ghost = Mathf.Clamp(wave.Ghost + minGhostSpawnAmount, 0, maxGhostSpawnAmount);
+        wave.Shooter = Mathf.Clamp(wave.Shooter + minShootSpawnAmount, 0, maxShootSpawnAmount);
+        wave.Meteor = Mathf.Clamp(wave.Meteor + minMeteorSpawnAmount, 0, maxMeteorSpawnAmount);
+
+
+        Debug.Log($"Spawning Wave {index}: Ghosts={wave.Ghost}, Shooters={wave.Shooter}, Meteors={wave.Meteor}");
     }
 
 
