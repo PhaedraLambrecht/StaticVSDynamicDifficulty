@@ -7,6 +7,8 @@ public class DifficultyManager : Singleton<DifficultyManager>
     private DifficultySettings _difficultySetting;
     private static DifficultyLevel _selectedDifficulty;
 
+    public string _difficulty;
+
     public override void Awake()
     {
         base.Awake();
@@ -28,6 +30,8 @@ public class DifficultyManager : Singleton<DifficultyManager>
 
     public void SetDifficulty(string difficulty)
     {
+        _difficulty = difficulty;
+
         switch (difficulty.ToLower())
         {
             case "easy":

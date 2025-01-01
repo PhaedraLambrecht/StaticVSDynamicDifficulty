@@ -1,7 +1,8 @@
-using Unity.Netcode;
-
-using UnityEngine;
 using System.Collections;
+using TMPro;
+using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -14,7 +15,13 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private AudioClip m_confirmClip;
 
-    private bool m_pressAnyKeyActive = true;
+    // Player name
+    [SerializeField]
+    private TMP_InputField playerNameInputField; // Add this serialized field
+    private bool m_isNameEntered = false; // Add this flag
+    private const string k_playerNameKey = "PlayerName";
+
+
     private const string k_enterMenuTriggerAnim = "enter_menu";
     private const string k_enterDifficultyChoiceTriggerAnim = "ToDificultyChoice";
 
@@ -57,23 +64,45 @@ public class MenuManager : MonoBehaviour
         // detecting the events
         LoadingSceneManager.Instance.Init();
 
+        if (PlayerPrefs.HasKey(k_playerNameKey))
+        {
+            string savedName = PlayerPrefs.GetString(k_playerNameKey);
+            playerNameInputField.text = savedName;
+            m_isNameEntered = true;
+            TriggerMenuTransitionAnimation(k_enterMenuTriggerAnim);
+        }
+
+        GameObject playerReportData = new GameObject("playerReportData");
+        PlayerReportData reportData = playerReportData.AddComponent<PlayerReportData>();
 
     }
-
     private void Update()
     {
-        if (m_pressAnyKeyActive)
+        if (PlayerPrefs.HasKey(k_playerNameKey))
         {
-            if (Input.anyKey)
-            {
-                TriggerMenuTransitionAnimation(k_enterMenuTriggerAnim);
-
-                m_pressAnyKeyActive = false;
-            }
+            string savedName = PlayerPrefs.GetString(k_playerNameKey);
+            playerNameInputField.text = savedName;
+            m_isNameEntered = true;
+            TriggerMenuTransitionAnimation(k_enterMenuTriggerAnim);
+        }
+        else if (!m_isNameEntered && Input.GetKeyDown(KeyCode.Return) && !string.IsNullOrEmpty(playerNameInputField.text))
+        {
+            OnNameEntered(playerNameInputField.text);
         }
     }
 
-    // TODO: Implement dynamic difficulty
+    private void OnNameEntered(string playerName)
+    {
+        if (!m_isNameEntered && !string.IsNullOrEmpty(playerName))
+        {
+            PlayerPrefs.SetString(k_playerNameKey, playerName); // Save the player's name
+            PlayerPrefs.Save();
+            TriggerMenuTransitionAnimation(k_enterMenuTriggerAnim);
+            m_isNameEntered = true;
+        }
+    }
+
+
     public void OnClickOption(string option)
     {
         if (option == "2")
@@ -81,10 +110,8 @@ public class MenuManager : MonoBehaviour
             // Create and configure the DDAController
             GameObject ddaControllerObject = new GameObject("DDAController");
             DDAController ddaController = ddaControllerObject.AddComponent<DDAController>();
-            //        Debug.Log("Add in dynamic difficulty");
             DifficultyManager.Instance.LoadDifficultySettings();
             DifficultyManager.Instance.SetDifficulty("Dynamic");
-
 
             NetworkManager.Singleton.StartHost();
             AudioManager.Instance.PlaySoundEffect(m_confirmClip);
@@ -110,11 +137,21 @@ public class MenuManager : MonoBehaviour
     }
 
     // TODO: Implement the quit functionality sending a mail to myself with peoples info.
-    //public void OnClickQuit()
-    //{
-    //    AudioManager.Instance.PlaySoundEffect(m_confirmClip);
-    //    Application.Quit();
-    //}
+    public void OnClickQuit()
+    {
+        // Sending data for experiment
+        GameObject dataMailerobject = new GameObject("dataMailerobject");
+        DataMailer dataMailer = dataMailerobject.AddComponent<DataMailer>();
+
+        PlayerReportData.Instance.playerName = playerNameInputField.text;
+        PlayerReportData.Instance.SaveReportToJson();
+
+        PlayerPrefs.DeleteAll();
+
+        AudioManager.Instance.PlaySoundEffect(m_confirmClip);
+        Debug.Log("I Quit");
+        Application.Quit();
+    }
 
     private void ClearAllCharacterData()
     {

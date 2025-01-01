@@ -110,22 +110,22 @@ public class DDAController : Singleton<DDAController>
         float accuracy = GetAccuracy();
         float damageTakenPercentage = GetDamageTakenPercentage();
 
-        Debug.Log($"Adjusting difficulty... Accuracy: {accuracy}, Damage Taken: {damageTakenPercentage}");
-
-
 
         // Adjust difficulty based on player metrics
         if (accuracy > 0.8f && damageTakenPercentage < 0.1f)
         {
             IncreaseDifficulty();
+            GameplayManager.Instance.AddPerformanceReport(accuracy, damageTakenPercentage, "Increasing Difficulty");
         }
         else if (accuracy < 0.5f || damageTakenPercentage > 0.3f)
         {
             DecreaseDifficulty();
+            GameplayManager.Instance.AddPerformanceReport(accuracy, damageTakenPercentage, "Decreasing Difficulty");
         }
         else
         {
             MaintainDifficulty();
+            GameplayManager.Instance.AddPerformanceReport(accuracy, damageTakenPercentage, "Maintaining Difficulty");
         }
 
 
